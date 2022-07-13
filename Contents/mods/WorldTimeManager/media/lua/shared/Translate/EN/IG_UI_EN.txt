@@ -1,0 +1,46 @@
+IGUI_EN = {
+
+    IGUI_SetDate        = "Set Date",
+    IGUI_SetTime        = "Set Time",
+    IGUI_SyncTime       = "Sync to System Time",
+    IGUI_Close          = "Close",
+
+    IGUI_ConfirmSyncTime = "Synchronize world time with system time ?",
+
+    IGUI_Month_0        = "January",
+    IGUI_Month_0_short  = "Jan",
+
+    IGUI_Month_1        = "February",
+    IGUI_Month_1_short  = "Feb",
+
+    IGUI_Month_2        = "March",
+    IGUI_Month_2_short  = "Mar",
+
+    IGUI_Month_3        = "April",
+    IGUI_Month_3_short  = "Apr",
+
+    IGUI_Month_4        = "May",
+    IGUI_Month_4_short  = "May",
+
+    IGUI_Month_5        = "June",
+    IGUI_Month_5_short  = "Jun",
+
+    IGUI_Month_6        = "July",
+    IGUI_Month_6_short  = "Jul",
+
+    IGUI_Month_7        = "August",
+    IGUI_Month_7_short  = "Aug",
+
+    IGUI_Month_8        = "September",
+    IGUI_Month_8_short  = "Sep",
+
+    IGUI_Month_9        = "October",
+    IGUI_Month_9_short  = "Oct",
+
+    IGUI_Month_10       = "November",
+    IGUI_Month_10_short = "Nov",
+
+    IGUI_Month_11       = "December",
+    IGUI_Month_11_short = "Dec",
+
+}

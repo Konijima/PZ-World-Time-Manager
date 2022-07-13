@@ -1,0 +1,23 @@
+VERSION = 1,
+
+option WorldTimeManager.disabled = {
+	type = boolean,
+	default = false,
+	page = WorldTimeManager,
+	translation = WorldTimeManager_disabled,
+}
+
+option WorldTimeManager.syncWorldWithSystemTime = {
+	type = boolean,
+	default = false,
+	page = WorldTimeManager,
+	translation = WorldTimeManager_syncWorldWithSystemTime,
+}
+
+option WorldTimeManager.utcOffset = {
+	type = enum,
+	default = 15,
+	numValues = 38,
+	page = WorldTimeManager,
+	translation = WorldTimeManager_utcOffset,
+}
