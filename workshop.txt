@@ -5,7 +5,6 @@ description=[h1]World Time Manager[/h1]
 description=Easily set the time of your world to what ever you want, or enable system time synchronization with Day length set to Real-time and your server will always boot at the current system time.
 description=
 description=[h3]Made for Multiplayer & Singleplayer.[/h3]
-description=Only admin and debug mode can see and set date and time.
 description=
 description=[h2]Features[/h2]
 description=- Set the world date.
