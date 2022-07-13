@@ -94,11 +94,17 @@ Client.Modules.WorldTime = ClientModuleWorldTime;
 ------------------------------------------------------------------------------------------------------------------------
 
 --- Add admin and debug context menu
-local function onFillWorldObjectContextMenu(_, context)
+local function onFillWorldObjectContextMenu(player, context)
     if SandboxVars.WorldTimeManager.disabled then return; end
     if Client.UI.WorldTimeWindow.instance then return; end
-    if not isAdmin() and not Client.Utils.IsSinglePlayer() then return; end
 
-    context:addDebugOption("World Time Manager", nil, ClientModuleWorldTime.OpenWorldTimeWindow);
+    if Client.Utils.IsSinglePlayer() then
+        local playerObj = getSpecificPlayer(player);
+        if not playerObj:getVehicle() then
+            context:addOption("World Time Manager", nil, ClientModuleWorldTime.OpenWorldTimeWindow);
+        end
+    elseif isAdmin() then
+        context:addDebugOption("World Time Manager", nil, ClientModuleWorldTime.OpenWorldTimeWindow);
+    end
 end
 Events.OnFillWorldObjectContextMenu.Add(onFillWorldObjectContextMenu);
