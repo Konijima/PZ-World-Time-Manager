@@ -1,3 +1,8 @@
+--- Contains a fix to the server auto sync at startup that was causing stack corruption
+--- on windows (not sure on linux but I assume its the same) trying to set date and time to early before the world loads.
+--- Also only check for mod setting changes every tenth tick instead of every tick. - Cyber-Punk 11/11/2025
+--- Maybe make the settings change interval a SandboxVar for heavly loaded servers?
+
 --- Load Server
 local Server = require 'WorldTimeManager/Server';
 local TimeZones = require 'WorldTimeManager/Classes/TimeZones';
@@ -84,15 +89,20 @@ local function onGameTimeLoaded()
 
     lastDayLength = SandboxVars.DayLength;
     lastUtcOffset = SandboxVars.WorldTimeManager.utcOffset;
-
-    if ServerModuleWorldTime.IsSystemTimeSyncEnabled() then
-        ServerModuleWorldTime.SyncSystemTime();
-    end
 end
 Events.OnGameTimeLoaded.Add(onGameTimeLoaded);
 
 --- Check if sandbox vars has been changed
-local function onTick()
+--- Sync the date and time on the first server tick since everything is properly loaded at this point.
+local tCount = 0;
+
+local function onTick(tick)
+    if tCount == 0 then 
+        if ServerModuleWorldTime.IsSystemTimeSyncEnabled() then
+        ServerModuleWorldTime.SyncSystemTime(); end
+        tCount = tick; 
+    end
+
     if SandboxVars.WorldTimeManager.disabled then return; end
 
     --- don't run for clients
@@ -101,11 +111,14 @@ local function onTick()
         return;
     end
 
-    if lastDayLength ~= SandboxVars.DayLength or lastUtcOffset ~= SandboxVars.WorldTimeManager.utcOffset then
-        if ServerModuleWorldTime.IsSystemTimeSyncEnabled() then
-            lastDayLength = SandboxVars.DayLength;
-            lastUtcOffset = SandboxVars.WorldTimeManager.utcOffset;
-            ServerModuleWorldTime.SyncSystemTime();
+    if tick - tCount >= 10 then
+        tCount = tick;
+        if lastDayLength ~= SandboxVars.DayLength or lastUtcOffset ~= SandboxVars.WorldTimeManager.utcOffset then
+            if ServerModuleWorldTime.IsSystemTimeSyncEnabled() then
+                lastDayLength = SandboxVars.DayLength;
+                lastUtcOffset = SandboxVars.WorldTimeManager.utcOffset;
+                ServerModuleWorldTime.SyncSystemTime();
+            end
         end
     end
 end
